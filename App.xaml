@@ -1,0 +1,55 @@
+<Application x:Class="MasaHotelPro.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MasaHotelPro"
+             xmlns:views="clr-namespace:MasaHotelPro.Views"
+             xmlns:viewmodels="clr-namespace:MasaHotelPro.ViewModels"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light" PrimaryColor="Blue" SecondaryColor="LightBlue" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            
+            <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+                
+            <!-- Custom Color Palette -->
+            <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#F8FAFC"/>
+            <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#3B82F6"/>
+            <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#1E293B"/>
+                
+            <SolidColorBrush x:Key="MaterialDesignPaper" Color="#0F172A"/>
+            <SolidColorBrush x:Key="MaterialDesignCardBackground" Color="#1E293B"/>
+                
+            <!-- Navigation Mapping -->
+            <DataTemplate DataType="{x:Type viewmodels:DashboardViewModel}">
+                <views:DashboardView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:RoomsViewModel}">
+                <views:RoomsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:GuestsViewModel}">
+                <views:GuestsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:EmployeesViewModel}">
+                <views:EmployeesView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ReservationsViewModel}">
+                <views:ReservationsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:BillingViewModel}">
+                <views:BillingView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ReportsViewModel}">
+                <views:ReportsView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:HousekeepingViewModel}">
+                <views:HousekeepingView />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:SettingsViewModel}">
+                <views:SettingsView />
+            </DataTemplate>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
