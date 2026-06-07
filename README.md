@@ -47,4 +47,8 @@ Cross-view navigation and communication are handled cleanly via the `WeakReferen
 
 ## License
 
-This project is proprietary software. All rights reserved.
+Copyright © 2026 Mohamed Mamdouh (MASA).
+
+All rights reserved.
+
+This software and its source code are the intellectual property of Mohamed Mamdouh (MASA). No part of this project may be copied, modified, distributed, or used for commercial purposes without prior written permission from the author.
