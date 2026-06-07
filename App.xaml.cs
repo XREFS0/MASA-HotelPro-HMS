@@ -1,6 +1,8 @@
 using System.Configuration;
 using System.Data;
 using System.Windows;
+using System.Threading.Tasks;
+using System;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 
@@ -56,15 +58,39 @@ public partial class App : Application
         return services.BuildServiceProvider();
     }
 
-    protected override void OnStartup(StartupEventArgs e)
+    protected override async void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
 
-        var dbContext = Services.GetRequiredService<Data.AppDbContext>();
-        dbContext.Database.EnsureCreated();
+        var splashScreen = new Views.SplashWindow();
+        splashScreen.Show();
 
-        var mainWindow = Services.GetRequiredService<MainWindow>();
-        mainWindow.DataContext = Services.GetRequiredService<ViewModels.MainViewModel>();
-        mainWindow.Show();
+        // Give the UI thread a moment to render the splash screen
+        await Task.Delay(100);
+
+        try
+        {
+            // Initialize database asynchronously
+            await Task.Run(() => 
+            {
+                using var scope = Services.CreateScope();
+                var dbContext = scope.ServiceProvider.GetRequiredService<Data.AppDbContext>();
+                dbContext.Database.EnsureCreated();
+                
+                // Add an artificial delay to show off the splash screen
+                Task.Delay(2500).Wait();
+            });
+
+            var mainWindow = Services.GetRequiredService<MainWindow>();
+            mainWindow.DataContext = Services.GetRequiredService<ViewModels.MainViewModel>();
+            
+            splashScreen.Close();
+            mainWindow.Show();
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($"Failed to start application: {ex.Message}", "Startup Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            Shutdown();
+        }
     }
 }
